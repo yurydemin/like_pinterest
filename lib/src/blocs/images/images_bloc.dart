@@ -25,7 +25,7 @@ class ImagesBloc extends Bloc<ImagesEvent, ImagesState> {
       _onLoadImages,
       transformer: throttleDroppable(throttleDuration),
     );
-    paginator = 0;
+    paginator = 1;
   }
 
   void _onLoadImages(
@@ -50,7 +50,7 @@ class ImagesBloc extends Bloc<ImagesEvent, ImagesState> {
       emit(state.copyWith(
         status: ImagesStatus.success,
         images: List.of(state.images)..addAll(images),
-        maxValue: paginator >= _pageLimit,
+        maxValue: paginator > _pageLimit,
       ));
     } catch (_) {
       emit(state.copyWith(status: ImagesStatus.failure));
